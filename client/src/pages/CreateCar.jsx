@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
 import '../App.css'
+import OptionPicker from '../components/OptionPicker'
 import { createCar, getAllOptions } from '../services/CarsAPI'
 import {
     BASE_PRICE,
@@ -77,6 +78,20 @@ const CreateCar = () => {
         })
     }
 
+    const handleOptionChange = (category, value) => {
+        setFormData((prev) => {
+            const nextData = {
+                ...prev,
+                [category]: value
+            }
+
+            return {
+                ...nextData,
+                price: calculateTotalPrice(nextData, priceLookup, BASE_PRICE)
+            }
+        })
+    }
+
     const handleSubmit = async (event) => {
         event.preventDefault()
 
@@ -108,33 +123,37 @@ const CreateCar = () => {
                 <label htmlFor='name'>Name</label>
                 <input id='name' name='name' type='text' value={formData.name} onChange={handleChange} required />
 
-                <label htmlFor='exterior'>Exterior</label>
-                <select id='exterior' name='exterior' value={formData.exterior} onChange={handleChange} required>
-                    {getOptionsByCategory(optionsData, 'exterior').map((option) => (
-                        <option key={option.id} value={option.name}>{option.name}</option>
-                    ))}
-                </select>
+                <OptionPicker
+                    title='Exterior'
+                    category='exterior'
+                    options={getOptionsByCategory(optionsData, 'exterior')}
+                    selectedValue={formData.exterior}
+                    onSelect={(value) => handleOptionChange('exterior', value)}
+                />
 
-                <label htmlFor='interior'>Interior</label>
-                <select id='interior' name='interior' value={formData.interior} onChange={handleChange} required>
-                    {getOptionsByCategory(optionsData, 'interior').map((option) => (
-                        <option key={option.id} value={option.name}>{option.name}</option>
-                    ))}
-                </select>
+                <OptionPicker
+                    title='Roof'
+                    category='roof'
+                    options={getOptionsByCategory(optionsData, 'roof')}
+                    selectedValue={formData.roof}
+                    onSelect={(value) => handleOptionChange('roof', value)}
+                />
 
-                <label htmlFor='roof'>Roof</label>
-                <select id='roof' name='roof' value={formData.roof} onChange={handleChange} required>
-                    {getOptionsByCategory(optionsData, 'roof').map((option) => (
-                        <option key={option.id} value={option.name}>{option.name}</option>
-                    ))}
-                </select>
+                <OptionPicker
+                    title='Wheels'
+                    category='wheel'
+                    options={getOptionsByCategory(optionsData, 'wheel')}
+                    selectedValue={formData.wheel}
+                    onSelect={(value) => handleOptionChange('wheel', value)}
+                />
 
-                <label htmlFor='wheel'>Wheel</label>
-                <select id='wheel' name='wheel' value={formData.wheel} onChange={handleChange} required>
-                    {getOptionsByCategory(optionsData, 'wheel').map((option) => (
-                        <option key={option.id} value={option.name}>{option.name}</option>
-                    ))}
-                </select>
+                <OptionPicker
+                    title='Interior'
+                    category='interior'
+                    options={getOptionsByCategory(optionsData, 'interior')}
+                    selectedValue={formData.interior}
+                    onSelect={(value) => handleOptionChange('interior', value)}
+                />
 
                 <label htmlFor='price'>Price</label>
                 <input id='price' name='price' type='number' value={formData.price} readOnly />

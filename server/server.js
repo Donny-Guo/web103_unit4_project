@@ -13,6 +13,7 @@ const app = express()
 
 app.use(express.json())
 app.use("/api", router)
+app.use('/images', express.static(path.resolve('images')))
 
 if (process.env.NODE_ENV === 'development') {
     app.use(favicon(path.resolve('../', 'client', 'public', 'lightning.png')))

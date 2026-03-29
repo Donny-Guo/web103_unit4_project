@@ -1,0 +1,138 @@
+.option-picker {
+    margin: 1rem 0;
+    background: rgba(0, 0, 0, 0.65);
+    border: 2px solid #9f001c;
+    border-radius: 12px;
+    padding: 1rem;
+}
+
+.option-picker h3 {
+    margin-top: 0;
+    color: #ffffff;
+}
+
+.option-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+}
+
+.option-tile {
+    width: 160px;
+    border: 2px solid #4a4a4a;
+    border-radius: 8px;
+    background: #0f0f0f;
+    color: #ffffff;
+    padding: 0.4rem;
+    text-align: left;
+    transition: transform 0.15s ease, border-color 0.15s ease;
+}
+
+.option-tile:hover {
+    border-color: #c10022;
+    transform: translateY(-2px);
+}
+
+.option-tile.selected {
+    border-color: #ffffff;
+    box-shadow: 0 0 0 2px #c10022 inset;
+}
+
+.option-tile img {
+    width: 160px;
+    height: 90px;
+    object-fit: cover;
+    border-radius: 4px;
+    display: block;
+    margin-bottom: 0.35rem;
+}
+
+.option-tile span {
+    display: block;
+    font-weight: 700;
+    font-size: 0.9rem;
+}
+
+.option-tile small {
+    display: block;
+    color: #d0d0d0;
+}
+
+.interactive-tile {
+    position: relative;
+    padding: 0;
+    overflow: hidden;
+}
+
+.interactive-tile img {
+    margin-bottom: 0;
+}
+
+.interactive-tile span,
+.interactive-tile small {
+    position: absolute;
+    left: 8px;
+    right: 8px;
+    z-index: 1;
+    opacity: 0;
+    transform: translateY(6px);
+    transition: opacity 0.18s ease, transform 0.18s ease;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8);
+    line-height: 1.15;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.interactive-tile span {
+    bottom: 24px;
+    font-size: 0.62rem;
+}
+
+.interactive-tile small {
+    bottom: 8px;
+    font-size: 0.56rem;
+}
+
+.interactive-tile::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.82), rgba(0, 0, 0, 0.15));
+    opacity: 0;
+    transition: opacity 0.18s ease;
+}
+
+.interactive-tile:hover::after,
+.interactive-tile:focus-visible::after,
+.interactive-tile.selected::after {
+    opacity: 1;
+}
+
+.interactive-tile:hover span,
+.interactive-tile:hover small,
+.interactive-tile:focus-visible span,
+.interactive-tile:focus-visible small,
+.interactive-tile.selected span,
+.interactive-tile.selected small {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.cars-option-grid .option-tile {
+    width: 160px;
+}
+
+.cars-option-grid .option-tile img {
+    width: 160px;
+    height: 90px;
+}
+
+.cars-option-grid .option-tile.option-exterior {
+    width: 160px;
+}
+
+.cars-option-grid .option-tile.option-exterior img {
+    width: 160px;
+    height: 90px;
+}
