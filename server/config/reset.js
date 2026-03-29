@@ -14,35 +14,36 @@ DROP TABLE IF EXISTS interior_options;
 DROP TABLE IF EXISTS exterior_options;
 
 CREATE TABLE IF NOT EXISTS exterior_options (
-	id INTEGER PRIMARY KEY,
+	id SERIAL PRIMARY KEY,
 	name VARCHAR(255) NOT NULL UNIQUE,
 	price INTEGER NOT NULL,
 	image_path VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS interior_options (
-	id INTEGER PRIMARY KEY,
+	id SERIAL PRIMARY KEY,
 	name VARCHAR(255) NOT NULL UNIQUE,
 	price INTEGER NOT NULL,
 	image_path VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS roof_options (
-	id INTEGER PRIMARY KEY,
+	id SERIAL PRIMARY KEY,
 	name VARCHAR(255) NOT NULL UNIQUE,
 	price INTEGER NOT NULL,
 	image_path VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS wheel_options (
-	id INTEGER PRIMARY KEY,
+	id SERIAL PRIMARY KEY,
 	name VARCHAR(255) NOT NULL UNIQUE,
 	price INTEGER NOT NULL,
 	image_path VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS "CustomItem" (
-	id INTEGER PRIMARY KEY,
+    id SERIAL PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
 	exterior VARCHAR(255) NOT NULL,
 	interior VARCHAR(255) NOT NULL,
 	roof VARCHAR(255) NOT NULL,
@@ -53,24 +54,24 @@ CREATE TABLE IF NOT EXISTS "CustomItem" (
 
 const seedOptionTable = async (tableName, data) => {
     const insertQuery = `
-		INSERT INTO ${tableName} (id, name, price, image_path)
-		VALUES ($1, $2, $3, $4)
+		INSERT INTO ${tableName} (name, price, image_path)
+		VALUES ($1, $2, $3)
 	`
 
     for (const option of data) {
-        await pool.query(insertQuery, [option.id, option.name, option.price, option.imagePath])
+        await pool.query(insertQuery, [option.name, option.price, option.imagePath])
     }
 }
 
 const seedCustomItemsTable = async () => {
     const insertQuery = `
-		INSERT INTO "CustomItem" (id, exterior, interior, roof, wheel, price)
+		INSERT INTO "CustomItem" (name, exterior, interior, roof, wheel, price)
 		VALUES ($1, $2, $3, $4, $5, $6)
 	`
 
     for (const item of customData) {
         await pool.query(insertQuery, [
-            item.id,
+            item.name,
             item.exterior,
             item.interior,
             item.roof,
