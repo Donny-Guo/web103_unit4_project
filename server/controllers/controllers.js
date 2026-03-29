@@ -1,6 +1,6 @@
 import { pool } from '../config/database.js'
 
-const TABLE_NAME = process.env.CUSTOM_ITEM_TABLE || '"CustomItem"'
+const TABLE_NAME = process.env.CUSTOM_ITEM_TABLE || 'custom_item'
 const OPTION_TABLES = {
     exterior: 'exterior_options',
     interior: 'interior_options',
@@ -93,8 +93,8 @@ const createCar = async (req, res) => {
     try {
         const query = {
             text: `
-                INSERT INTO ${TABLE_NAME} (name, exterior, interior, roof, wheel, price)
-                VALUES ($1, $2, $3, $4, $5, $6)
+				INSERT INTO ${TABLE_NAME} (id, name, exterior, interior, roof, wheel, price)
+				VALUES ((SELECT COALESCE(MAX(id), 0) + 1 FROM ${TABLE_NAME}), $1, $2, $3, $4, $5, $6)
 				RETURNING *
 			`,
             values: [payload.name, payload.exterior, payload.interior, payload.roof, payload.wheel, payload.price]

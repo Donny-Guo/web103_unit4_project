@@ -6,7 +6,7 @@
     background-attachment: fixed;
     width: 100%;
     min-height: 100vh;
-    overflow-y: scroll;
+    overflow-y: visible;
     overflow-x: hidden;
     box-sizing: border-box;
     padding: 0 clamp(16px, 4vw, 56px) 50px;

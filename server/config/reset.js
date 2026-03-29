@@ -7,7 +7,7 @@ import roofData from '../data/roof_data.js'
 import wheelData from '../data/wheel_data.js'
 
 const createTablesQuery = `
-DROP TABLE IF EXISTS "CustomItem";
+DROP TABLE IF EXISTS custom_item;
 DROP TABLE IF EXISTS wheel_options;
 DROP TABLE IF EXISTS roof_options;
 DROP TABLE IF EXISTS interior_options;
@@ -41,7 +41,7 @@ CREATE TABLE IF NOT EXISTS wheel_options (
 	image_path VARCHAR(255) NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS "CustomItem" (
+CREATE TABLE IF NOT EXISTS "custom_item" (
     id SERIAL PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
 	exterior VARCHAR(255) NOT NULL,
@@ -65,7 +65,7 @@ const seedOptionTable = async (tableName, data) => {
 
 const seedCustomItemsTable = async () => {
     const insertQuery = `
-		INSERT INTO "CustomItem" (name, exterior, interior, roof, wheel, price)
+		INSERT INTO custom_item (name, exterior, interior, roof, wheel, price)
 		VALUES ($1, $2, $3, $4, $5, $6)
 	`
 
